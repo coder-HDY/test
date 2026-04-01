@@ -69,6 +69,15 @@ console.log(arrayDifference([1, 2, 3], [2]));
 详细文档：
 - docs/tools/arrayTool.md
 
+### Validation Tools
+
+- validateEmail(email): 验证邮箱格式
+- validateUsername(username): 验证用户名格式（字母+数字+下划线，3-20字）
+- validatePassword(password): 验证密码强度（8字+大小写+数字+特殊字符）
+
+详细文档：
+- docs/tools/validationTool.md
+
 完整 API 目录：
 - docs/README.md
 
