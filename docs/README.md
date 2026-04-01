@@ -16,3 +16,9 @@
 1. [arrayIntersection](./tools/arrayTool.md#arrayintersection) — 2つの配列の交集合を取得する
 2. [arrayUnion](./tools/arrayTool.md#arrayunion) — 2つの配列の和集合を取得する
 3. [arrayDifference](./tools/arrayTool.md#arraydifference) — 2つの配列の差集合を取得する
+
+## バリデーション
+
+1. [validateEmail](./tools/validationTool.md#validateemail) — メールアドレスのフォーマットを検証する
+2. [validateUsername](./tools/validationTool.md#validateusername) — ユーザー名の形式を検証する
+3. [validatePassword](./tools/validationTool.md#validatepassword) — パスワード強度を検証する
