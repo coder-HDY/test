@@ -1,0 +1,22 @@
+{
+  "name": "date-tools",
+  "version": "1.0.0",
+  "description": "Date utility functions",
+  "main": "tools/dateTool.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "date",
+    "utils"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
