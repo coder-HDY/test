@@ -1,6 +1,6 @@
 ---
 name: write-tests
-description: 'Use when writing, creating, or adding tests for functions in tools/. Use when implementing TDD, unit tests, test cases, AAA pattern, Jest tests, writing test files under test/ directory, テスト作成, 테스트 작성.'
+description: 'Use when writing, creating, or adding tests for functions in tools/. Use when implementing TDD, unit tests, test cases, AAA pattern, Jest tests, writing test files under test/ directory, テスト作成'
 ---
 
 # Write Tests (TDD)
@@ -11,6 +11,19 @@ description: 'Use when writing, creating, or adding tests for functions in tools
 - テストファイルを `test/` 配下に作成・更新するとき
 - AAA パターンでテストを書くとき
 - `npm test` を通すためのテストを整備するとき
+
+## MUST ルール（言語統一）
+
+- テストファイル内の説明文は**必ず日本語**で記述すること。
+- `describe()` と `it()` のテスト名は**必ず日本語**にすること。
+- 英語・中国語・韓国語など日本語以外の説明文は使用しないこと。
+
+```js
+describe('日付ツールのテスト', () => {
+  it('2つの配列の共通要素を返すこと', () => {});
+  it('日付差分を正しく返すこと', () => {});
+});
+```
 
 ## Procedure
 
@@ -26,9 +39,10 @@ tools/array/arrayTool.js   → test/tools/array/arrayTools.test.js
 ### Step 2: AAA パターン（3A 原則）でテストを書く
 
 すべてのテストケースに **Arrange → Act → Assert** の3段階コメントを必ず明記すること。
+また、テストケース名（`it()`）とグループ名（`describe()`）は必ず日本語で記述すること。
 
 ```js
-it('should return correct diff when given two dates', () => {
+it('2つの日付を与えたときに正しい差分を返すこと', () => {
   // Arrange
   const date1 = new Date('2026-01-01');
   const date2 = new Date('2026-01-05');
