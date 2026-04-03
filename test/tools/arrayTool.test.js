@@ -1,9 +1,12 @@
-const { arrayIntersection, arrayUnion, arrayDifference } = require('../../tools/arrayTool');
+const {
+  arrayIntersection,
+  arrayUnion,
+  arrayDifference
+} = require('../../tools/arrayTool');
 
-describe('Array Tools Test Suite', () => {
-  // ========== arrayIntersection 测试 ==========
+describe('配列ツールのテスト', () => {
   describe('arrayIntersection()', () => {
-    it('应该返回两个数组的交集', () => {
+    it('2つの配列の共通要素を返すこと', () => {
       // Arrange
       const arr1 = [1, 2, 3, 4];
       const arr2 = [3, 4, 5, 6];
@@ -15,19 +18,19 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([3, 4]);
     });
 
-    it('应该在无交集时返回空数组', () => {
+    it('重複を含む入力でも共通要素を一意に返すこと', () => {
       // Arrange
-      const arr1 = [1, 2];
-      const arr2 = [3, 4];
+      const arr1 = [1, 2, 2, 3];
+      const arr2 = [2, 2, 4];
 
       // Act
       const result = arrayIntersection(arr1, arr2);
 
       // Assert
-      expect(result).toEqual([]);
+      expect(result).toEqual([2]);
     });
 
-    it('应该在空数组输入时返回空数组', () => {
+    it('空配列を含む場合は空配列を返すこと', () => {
       // Arrange
       const arr1 = [];
       const arr2 = [1, 2, 3];
@@ -39,20 +42,18 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([]);
     });
 
-    it('当参数不是数组时应该抛出错误', () => {
+    it('配列以外の引数が渡された場合はエラーを投げること', () => {
       // Arrange
-      const arr1 = [1, 2, 3];
-      const invalidArg = 'not-an-array';
+      const invalidArg = 'not-array';
 
       // Act & Assert
-      expect(() => arrayIntersection(arr1, invalidArg)).toThrow('Both arguments must be arrays');
-      expect(() => arrayIntersection(null, arr1)).toThrow('Both arguments must be arrays');
+      expect(() => arrayIntersection(invalidArg, [1, 2])).toThrow('Both arguments must be arrays');
+      expect(() => arrayIntersection([1, 2], null)).toThrow('Both arguments must be arrays');
     });
   });
 
-  // ========== arrayUnion 测试 ==========
   describe('arrayUnion()', () => {
-    it('应该返回两个数组的并集且元素不重复', () => {
+    it('2つの配列の和集合を返すこと', () => {
       // Arrange
       const arr1 = [1, 2, 3];
       const arr2 = [3, 4, 5];
@@ -64,7 +65,7 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([1, 2, 3, 4, 5]);
     });
 
-    it('应该在两个空数组输入时返回空数组', () => {
+    it('両方が空配列の場合は空配列を返すこと', () => {
       // Arrange
       const arr1 = [];
       const arr2 = [];
@@ -76,31 +77,30 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([]);
     });
 
-    it('应该正确处理重复元素', () => {
+    it('文字列要素でも和集合を正しく返すこと', () => {
       // Arrange
-      const arr1 = [1, 1, 2, 2];
-      const arr2 = [2, 3, 3];
+      const arr1 = ['a', 'b'];
+      const arr2 = ['b', 'c'];
 
       // Act
       const result = arrayUnion(arr1, arr2);
 
       // Assert
-      expect(result).toEqual([1, 2, 3]);
+      expect(result).toEqual(['a', 'b', 'c']);
     });
 
-    it('当参数不是数组时应该抛出错误', () => {
+    it('配列以外の引数が渡された場合はエラーを投げること', () => {
       // Arrange
-      const arr1 = [1, 2, 3];
+      const invalidArg = 123;
 
       // Act & Assert
-      expect(() => arrayUnion(arr1, undefined)).toThrow('Both arguments must be arrays');
-      expect(() => arrayUnion({}, arr1)).toThrow('Both arguments must be arrays');
+      expect(() => arrayUnion(invalidArg, [1, 2])).toThrow('Both arguments must be arrays');
+      expect(() => arrayUnion([1, 2], {})).toThrow('Both arguments must be arrays');
     });
   });
 
-  // ========== arrayDifference 测试 ==========
   describe('arrayDifference()', () => {
-    it('应该返回存在于 arr1 但不存在于 arr2 的元素', () => {
+    it('第一配列にのみ存在する要素を返すこと', () => {
       // Arrange
       const arr1 = [1, 2, 3, 4];
       const arr2 = [3, 4, 5];
@@ -112,19 +112,19 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([1, 2]);
     });
 
-    it('应该在 arr2 为空时返回 arr1 中未被移除的元素（保留重复）', () => {
+    it('第二配列が空配列の場合は第一配列を返すこと', () => {
       // Arrange
-      const arr1 = [1, 2, 2, 3];
+      const arr1 = [1, 2, 3];
       const arr2 = [];
 
       // Act
       const result = arrayDifference(arr1, arr2);
 
       // Assert
-      expect(result).toEqual([1, 2, 2, 3]);
+      expect(result).toEqual([1, 2, 3]);
     });
 
-    it('应该在 arr1 为空时返回空数组', () => {
+    it('第一配列が空配列の場合は空配列を返すこと', () => {
       // Arrange
       const arr1 = [];
       const arr2 = [1, 2, 3];
@@ -136,13 +136,25 @@ describe('Array Tools Test Suite', () => {
       expect(result).toEqual([]);
     });
 
-    it('当参数不是数组时应该抛出错误', () => {
+    it('重複要素を含む場合でも差集合を正しく返すこと', () => {
       // Arrange
-      const arr2 = [1, 2, 3];
+      const arr1 = [1, 1, 2, 3];
+      const arr2 = [1];
+
+      // Act
+      const result = arrayDifference(arr1, arr2);
+
+      // Assert
+      expect(result).toEqual([2, 3]);
+    });
+
+    it('配列以外の引数が渡された場合はエラーを投げること', () => {
+      // Arrange
+      const invalidArg = undefined;
 
       // Act & Assert
-      expect(() => arrayDifference('invalid', arr2)).toThrow('Both arguments must be arrays');
-      expect(() => arrayDifference(arr2, 123)).toThrow('Both arguments must be arrays');
+      expect(() => arrayDifference(invalidArg, [1, 2])).toThrow('Both arguments must be arrays');
+      expect(() => arrayDifference([1, 2], false)).toThrow('Both arguments must be arrays');
     });
   });
 });
