@@ -10,6 +10,7 @@
 1. [getCurrentDate](./tools/dateTool.md#getcurrentdate) — 今日の日付を取得する
 2. [getDateDiff](./tools/dateTool.md#getdatediff) — 2つの日付の差分を計算する
 3. [getDayOfWeek](./tools/dateTool.md#getdayofweek) — 指定した日付の曜日を判定する
+4. [getTimestampDayDiff](./tools/dateTool.md#gettimestampdaydiff) — 2つのタイムスタンプの差分日数を計算する（切り上げ）
 
 ## 配列操作
 

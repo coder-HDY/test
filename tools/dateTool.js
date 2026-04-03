@@ -87,8 +87,30 @@ function getDayOfWeek(date) {
   };
 }
 
+/**
+ * 计算两个时间戳相差的天数（向上取整）
+ * @param {number} timestamp1 - 第一个时间戳（毫秒）
+ * @param {number} timestamp2 - 第二个时间戳（毫秒）
+ * @returns {number} 相差天数，按天向上取整
+ */
+function getTimestampDayDiff(timestamp1, timestamp2) {
+  if (!Number.isFinite(timestamp1) || !Number.isFinite(timestamp2)) {
+    throw new Error('Invalid timestamp');
+  }
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const diffMs = Math.abs(timestamp2 - timestamp1);
+
+  if (diffMs === 0) {
+    return 0;
+  }
+
+  return Math.ceil(diffMs / msPerDay);
+}
+
 module.exports = {
   getCurrentDate,
   getDateDiff,
-  getDayOfWeek
+  getDayOfWeek,
+  getTimestampDayDiff
 };

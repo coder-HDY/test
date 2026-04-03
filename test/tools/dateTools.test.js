@@ -1,4 +1,4 @@
-const { getCurrentDate, getDateDiff, getDayOfWeek } = require('../../tools/dateTool');
+const { getCurrentDate, getDateDiff, getDayOfWeek, getTimestampDayDiff } = require('../../tools/dateTool');
 
 describe('Date Tools Test Suite', () => {
   
@@ -363,6 +363,66 @@ describe('Date Tools Test Suite', () => {
       expect(resultLast.day).toBe(30);
       expect(resultFirst.dayIndex).toBeDefined();
       expect(resultLast.dayIndex).toBeDefined();
+    });
+  });
+
+  // ========== getTimestampDayDiff 测试 ==========
+  describe('getTimestampDayDiff()', () => {
+    it('应该正确计算整天差值', () => {
+      // Arrange
+      const ts1 = new Date('2026-04-01T00:00:00Z').getTime();
+      const ts2 = new Date('2026-04-03T00:00:00Z').getTime();
+
+      // Act
+      const result = getTimestampDayDiff(ts1, ts2);
+
+      // Assert
+      expect(result).toBe(2);
+    });
+
+    it('应该将1.9天差值按天向上取整为2天', () => {
+      // Arrange
+      const ts1 = 0;
+      const ts2 = Math.floor(1.9 * 24 * 60 * 60 * 1000);
+
+      // Act
+      const result = getTimestampDayDiff(ts1, ts2);
+
+      // Assert
+      expect(result).toBe(2);
+    });
+
+    it('应该正确处理相同时间戳为0天', () => {
+      // Arrange
+      const ts = new Date('2026-04-01T08:30:00Z').getTime();
+
+      // Act
+      const result = getTimestampDayDiff(ts, ts);
+
+      // Assert
+      expect(result).toBe(0);
+    });
+
+    it('应该在任意顺序传参时返回相同结果', () => {
+      // Arrange
+      const ts1 = new Date('2026-04-01T00:00:00Z').getTime();
+      const ts2 = new Date('2026-04-02T06:00:00Z').getTime();
+
+      // Act
+      const result1 = getTimestampDayDiff(ts1, ts2);
+      const result2 = getTimestampDayDiff(ts2, ts1);
+
+      // Assert
+      expect(result1).toBe(result2);
+    });
+
+    it('无效时间戳应抛出错误', () => {
+      // Arrange
+      const invalidTimestamp = 'not-a-timestamp';
+
+      // Act & Assert
+      expect(() => getTimestampDayDiff(invalidTimestamp, Date.now())).toThrow('Invalid timestamp');
+      expect(() => getTimestampDayDiff(Date.now(), NaN)).toThrow('Invalid timestamp');
     });
   });
 });
