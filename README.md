@@ -86,6 +86,24 @@ console.log(arrayDifference([1, 2, 3], [2]));
 - npm test: 运行全部测试
 - npm run test:watch: 监听模式运行测试
 
+## Quality Assurance
+
+为保证工具函数在扩展时依然稳定可维护，建议遵循以下质量基线：
+
+- 测试优先：新增或修改工具函数时，先补充对应测试，再实现逻辑。
+- 用例完整：测试至少覆盖正常输入、边界值（空值/最小值/最大值）和异常输入。
+- 结构清晰：测试用例使用 Arrange / Act / Assert 三段式，便于评审与排错。
+- 文档同步：新增 API 后同步更新 docs/README.md 与 docs/tools/* 详细说明。
+- 回归必跑：提交前至少执行一次 npm test，确保无回归。
+
+推荐在提交 PR 前使用以下自检清单：
+
+- [ ] 新增/修改功能已补充对应测试
+- [ ] 测试覆盖了正常、边界、异常场景
+- [ ] 本地 npm test 全部通过
+- [ ] API 文档与 README 已同步更新
+- [ ] PR 描述说明了变更内容与变更原因
+
 ## Project Structure
 
 ```text

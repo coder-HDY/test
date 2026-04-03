@@ -10,6 +10,7 @@
 - [getCurrentDate](#getcurrentdate)
 - [getDateDiff](#getdatediff)
 - [getDayOfWeek](#getdayofweek)
+- [getTimestampDayDiff](#gettimestampdaydiff)
 
 ---
 
@@ -185,4 +186,57 @@ console.log(result2.dayNameEn);  // "Sunday"
 ```js
 getDayOfWeek('invalid-date');
 // Error: Invalid date format
+```
+
+---
+
+## getTimestampDayDiff
+
+**概要**：2つのタイムスタンプ（ミリ秒）の差分を日単位で計算し、端数がある場合は切り上げた日数を返す。
+
+**シグネチャ**
+
+```js
+getTimestampDayDiff(timestamp1, timestamp2)
+```
+
+**パラメータ**
+
+| パラメータ名 | 型 | 必須 | 説明 |
+|---|---|---|---|
+| `timestamp1` | `number` | ✅ | 比較する1つ目の Unix タイムスタンプ（ミリ秒）。 |
+| `timestamp2` | `number` | ✅ | 比較する2つ目の Unix タイムスタンプ（ミリ秒）。 |
+
+**戻り値** `number`
+
+| 値 | 型 | 説明 |
+|---|---|---|
+| 差分日数 | number | 2つのタイムスタンプの差分日数。差分が 0 でなければ端数を切り上げる。 |
+
+**使用例**
+
+```js
+const { getTimestampDayDiff } = require('./tools/dateTool');
+
+// ちょうど2日
+const dayDiff1 = getTimestampDayDiff(
+	new Date('2026-04-01T00:00:00Z').getTime(),
+	new Date('2026-04-03T00:00:00Z').getTime()
+);
+console.log(dayDiff1); // 2
+
+// 1.9日 -> 切り上げで2日
+const dayDiff2 = getTimestampDayDiff(0, Math.floor(1.9 * 24 * 60 * 60 * 1000));
+console.log(dayDiff2); // 2
+```
+
+**エラー**
+
+| 条件 | エラーメッセージ |
+|---|---|
+| タイムスタンプが数値ではない、または有限数でない場合 | `Invalid timestamp` |
+
+```js
+getTimestampDayDiff('not-a-number', Date.now());
+// Error: Invalid timestamp
 ```

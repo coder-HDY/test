@@ -1,4 +1,9 @@
-const { validateEmail, validateUsername, validatePassword } = require('../../tools/validationTool');
+const {
+  validateEmail,
+  validateUsername,
+  validatePassword,
+  isEqualValue
+} = require('../../tools/validationTool');
 
 describe('Validation Tools Test Suite', () => {
 
@@ -394,6 +399,141 @@ describe('Validation Tools Test Suite', () => {
 
       // Act
       const result = validatePassword(password);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+  });
+
+  // ========== isEqualValue 测试 ==========
+  describe('isEqualValue()', () => {
+    it('应该判断两个相同数字相等', () => {
+      // Arrange
+      const value1 = 100;
+      const value2 = 100;
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(true);
+    });
+
+    it('应该判断两个不同数字不相等', () => {
+      // Arrange
+      const value1 = 100;
+      const value2 = 101;
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+
+    it('应该深度比较对象并返回相等', () => {
+      // Arrange
+      const value1 = {
+        id: 1,
+        profile: {
+          name: 'Alice',
+          tags: ['admin', 'user']
+        }
+      };
+      const value2 = {
+        id: 1,
+        profile: {
+          name: 'Alice',
+          tags: ['admin', 'user']
+        }
+      };
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(true);
+    });
+
+    it('应该深度比较对象并返回不相等', () => {
+      // Arrange
+      const value1 = {
+        id: 1,
+        profile: {
+          name: 'Alice',
+          tags: ['admin', 'user']
+        }
+      };
+      const value2 = {
+        id: 1,
+        profile: {
+          name: 'Alice',
+          tags: ['admin', 'guest']
+        }
+      };
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+
+    it('应该按顺序比较数组，不同顺序返回不相等', () => {
+      // Arrange
+      const value1 = [1, 2, 3];
+      const value2 = [3, 2, 1];
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+
+    it('应该比较 Date 对象的时间值', () => {
+      // Arrange
+      const value1 = new Date('2026-01-01T00:00:00.000Z');
+      const value2 = new Date('2026-01-01T00:00:00.000Z');
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(true);
+    });
+
+    it('应该比较 null 和 undefined 的边界值', () => {
+      // Arrange
+      const value1 = null;
+      const value2 = undefined;
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(false);
+    });
+
+    it('应该比较 NaN 并返回相等', () => {
+      // Arrange
+      const value1 = NaN;
+      const value2 = NaN;
+
+      // Act
+      const result = isEqualValue(value1, value2);
+
+      // Assert
+      expect(result).toBe(true);
+    });
+
+    it('应该比较不同类型值并返回不相等', () => {
+      // Arrange
+      const value1 = '123';
+      const value2 = 123;
+
+      // Act
+      const result = isEqualValue(value1, value2);
 
       // Assert
       expect(result).toBe(false);
