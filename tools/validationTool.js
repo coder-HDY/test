@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /**
  * 验证电子邮件格式（RFC 5322 标准）
  * @param {string} email - 待验证的邮箱地址
@@ -53,8 +55,19 @@ function validatePassword(password) {
   return hasMinLength && hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
 }
 
+/**
+ * 比较两个任意值是否相等（对象会进行深度比较）
+ * @param {*} value1 - 第一个值
+ * @param {*} value2 - 第二个值
+ * @returns {boolean} 两个值是否相等
+ */
+function isEqualValue(value1, value2) {
+  return _.isEqual(value1, value2);
+}
+
 module.exports = {
   validateEmail,
   validateUsername,
-  validatePassword
+  validatePassword,
+  isEqualValue
 };

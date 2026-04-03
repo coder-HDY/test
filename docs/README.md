@@ -22,3 +22,4 @@
 1. [validateEmail](./tools/validationTool.md#validateemail) — メールアドレスのフォーマットを検証する
 2. [validateUsername](./tools/validationTool.md#validateusername) — ユーザー名の形式を検証する
 3. [validatePassword](./tools/validationTool.md#validatepassword) — パスワード強度を検証する
+4. [isEqualValue](./tools/validationTool.md#isequalvalue) — 2つの任意値が等しいかを判定する（オブジェクトは深い比較）
