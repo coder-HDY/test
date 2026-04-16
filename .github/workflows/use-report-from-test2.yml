@@ -1,0 +1,8 @@
+name: Use Remote Report Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-remote-report:
+    uses: coder-HDY/test2/.github/workflows/report.yml@main
