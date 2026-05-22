@@ -1,11 +1,13 @@
-# ============================================================
-# 【仓库1 专用】这是源模板，存放在控制仓库，不直接运行。
-# 分发脚本读取此文件，生成目标仓库本地运行的独立版本。
-# 生成时会自动移除 workflow_call 触发器，其余内容不变。
-# ============================================================
 name: 自动化报告
 
 on:
+  workflow_call:  # 支持被其他仓库复用调用
+    inputs:
+      repo_name:
+        description: 要显示在报告标题中的仓库名
+        required: false
+        type: string
+        default: coder-HDY/test2
   push:
     branches: [main]
   pull_request:
@@ -20,7 +22,7 @@ jobs:
     name: 生成报告
     runs-on: ubuntu-latest
     env:
-      REPORT_REPO_NAME: ${{ github.repository }}
+      REPORT_REPO_NAME: ${{ inputs.repo_name || github.repository }}
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
@@ -79,6 +81,4 @@ jobs:
 
           ---
           > ✅ 报告生成完成
-          > ✅ 哈哈哈哈
-          > ✅ 嘿嘿嘿嘿嘿嘿
           EOF
