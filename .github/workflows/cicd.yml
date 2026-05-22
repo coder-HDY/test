@@ -2,9 +2,9 @@ name: CICD Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Summary
         run: |
-          echo "## 🚀 部署摘要" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 部署摘要" >> $GITHUB_STEP_SUMMARY
           echo "| 字段 | 值 |" >> $GITHUB_STEP_SUMMARY
           echo "|------|-----|" >> $GITHUB_STEP_SUMMARY
           echo "| 部署时间 | $(date '+%Y-%m-%d %H:%M:%S UTC') |" >> $GITHUB_STEP_SUMMARY
